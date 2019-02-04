@@ -54,7 +54,6 @@ void BubbleSort( int* pTab, int nSize )
 //------------------------------------------------------------------------------
 void MixedSort( int* pTab, int nSize )
 {
-
 	int l = 1;
 	int p = nSize - 1;
 	int k = nSize - 1;
@@ -85,7 +84,6 @@ void MixedSort( int* pTab, int nSize )
 //------------------------------------------------------------------------------
 void HalfSort( int* pTab, int nSize )
 {
-
 	for( int i = 1; i < nSize; i++ )
 	{
 		int x = pTab[i];
@@ -202,7 +200,7 @@ void MergeSort( int *pTab, int *tmpTab, int nSize, int l, int p )
 		int m = ( l + p ) / 2;
 		MergeSort( pTab, tmpTab, nSize, l, m );
 		MergeSort( pTab, tmpTab, nSize, m + 1, p );
-		Merge( pTab, tmpTab, nSize, l, m, p );	// faza ³¹czenia
+		Merge( pTab, tmpTab, nSize, l, m, p );	// faza Å‚Ä…czenia
 	}
 }
 
@@ -212,9 +210,9 @@ void MergeSort( int *pTab, int *tmpTab, int nSize, int l, int p )
 bool copy( int* t, int* i, int* tmp, int* ix, int nLast )
 {
 	t[(*i)++] = tmp[(*ix)++];			//przenosimy element z tmp do t
-	if( *ix == nLast )					//sprawdzamy czy osi¹gniêto koniec serii
+	if( *ix == nLast )					//sprawdzamy czy osiÄ…gniÄ™to koniec serii
 		return 1;
-	return ( tmp[(*ix)-1] > tmp[*ix] ); //jeœli element skopiowany do t, jest wiêkszy ni¿ nastêpnik to return 1
+	return ( tmp[(*ix)-1] > tmp[*ix] ); //jeÅ›li element skopiowany do t, jest wiÄ™kszy niÅ¼ nastÄ™pnik to return 1
 }
 
 void CopySerie( int* t, int* i, int* tmp, int* ix, int nLast )
@@ -226,9 +224,9 @@ void CopySerie( int* t, int* i, int* tmp, int* ix, int nLast )
 	} while( !bEnd );
 }
 
-void NaturalMergeSort( int* pTab, int nSize ) //Sortowanie przez ³aczenie naturalne
+void NaturalMergeSort( int* pTab, int nSize ) //Sortowanie przez Å‚aczenie naturalne
 {
-	// Tworze tablice do zapamiêtywania serii
+	// Tworze tablice do zapamiÄ™tywania serii
 	int* pTmp1 = (int*)malloc( nSize*sizeof( int ) );
 	if( !pTmp1 )
 	{
@@ -281,11 +279,11 @@ void NaturalMergeSort( int* pTab, int nSize ) //Sortowanie przez ³aczenie natura
 		k = 0;
 
 		//laczenie i zliczanie serii
-		//Przenoszenie danych z sortowaniem ze zbiorów pomocniczych do tablicy g³ównej
-		while( ( j < nLast1 ) && ( k < nLast2 ) ) // dopóki nie koniec tab1 i nie koniec tab2
+		//Przenoszenie danych z sortowaniem ze zbiorÃ³w pomocniczych do tablicy gÅ‚Ã³wnej
+		while( ( j < nLast1 ) && ( k < nLast2 ) ) // dopÃ³ki nie koniec tab1 i nie koniec tab2
 		{
 			int bEndSerie = 0; //koniec serii
-			while( !bEndSerie ) // dopóki nie ma koñca tablcy z seriami 1 lub 2
+			while( !bEndSerie ) // dopÃ³ki nie ma koÅ„ca tablcy z seriami 1 lub 2
 			{
 				if( pTmp1[j] <= pTmp2[k] )
 				{
@@ -314,52 +312,3 @@ void NaturalMergeSort( int* pTab, int nSize ) //Sortowanie przez ³aczenie natura
 	free( pTmp1 );
 	free( pTmp2 );
 }
-
-
-
-/*
-5 7 6 1 9 2 8 4 3
-//rozdzielanie
-5 7| 1 9 |	4		6 | 2 8 | 3
-//³aczenie
-5 6 7 | 1 2 8 9 | 3 4
-
-5 6 7 | 3 4				1 2 8 9
-
-1 2 5 6 7 8 9 | 3 4
-
-1 2 5 6 7 8 9		3 4
-
-1 2 3 4 5 6 7 8 9
-
-qsort
-*/
-
-
-//HeapSort
-/* przywrocenie warunku stogu w podrzewie o korzeniu l;
-//kopiec nie wychodzi poza indeks p w tablicy
-int v = l;
-while( true )
-{
-
-int left = 2 * v;
-int right = left + 1;
-if( left > p ) return;
-// v nie ma nastepnika w kopcu
-// else v ma co najmniej jednego nastepnika
-
-int m = left; // indeks wiekszego z potomkow
-
-if( left < p )
-if( pTab[left] < pTab[right] )
-m = right;
-
-if( pTab[m] <= pTab[v] ) break; // dle warunke stogu juz jest zachowany	// wymiana i dalej w glab
-
-int x = pTab[v];
-pTab[v] = pTab[m];
-pTab[m] = x;
-v = m;
-}
-}*/
