@@ -172,9 +172,9 @@ void QuickSort( int* pTab, int l, int p )
 void Merge( int *pTab, int *tmpTab, int nSize, int l, int m, int p )
 {
 	memcpy( tmpTab, pTab, sizeof( int )*nSize );
-	int i = l;			// poczatkowy indeks pierwszego ciagu ( konczy sie na indeksie m wlacznie )
-	int j = m + 1;		// poczatkowy indeks drugiego ciagu ( konczy sie na p wlacznie );
-	int q = l;			// indeks poczatku polaczonych ciagow w tablicy t;
+	int i = l;			
+	int j = m + 1;		
+	int q = l;			
 
 	while( ( i <= m ) && ( j <= p ) )
 	{
@@ -185,22 +185,16 @@ void Merge( int *pTab, int *tmpTab, int nSize, int l, int m, int p )
 	}
 	while( i <= m ) 
 		pTab[q++] = tmpTab[i++];
-
-	/* Polacz ciagi wskazywane przez "i" oraz wskazywane przez "j" ( oba z tab1 tmp )
-		do ciagu wskazywanego przez q( w tablicy t )
-		Dokopiowanie danych z pierwszego ciagu gdy drugi sie skonczyl
-		w drugim przypadku nie trzeba bo juz jest na miejscu w tab t*/
 }
 
 void MergeSort( int *pTab, int *tmpTab, int nSize, int l, int p )
 {
-	// sortujemy miedzy l i p
 	if( l < p )
 	{
 		int m = ( l + p ) / 2;
 		MergeSort( pTab, tmpTab, nSize, l, m );
 		MergeSort( pTab, tmpTab, nSize, m + 1, p );
-		Merge( pTab, tmpTab, nSize, l, m, p );	// faza łączenia
+		Merge( pTab, tmpTab, nSize, l, m, p );	
 	}
 }
 
@@ -210,7 +204,7 @@ void MergeSort( int *pTab, int *tmpTab, int nSize, int l, int p )
 bool copy( int* t, int* i, int* tmp, int* ix, int nLast )
 {
 	t[(*i)++] = tmp[(*ix)++];			//przenosimy element z tmp do t
-	if( *ix == nLast )					//sprawdzamy czy osiągnięto koniec serii
+	if( *ix == nLast )				//sprawdzamy czy osiągnięto koniec serii
 		return 1;
 	return ( tmp[(*ix)-1] > tmp[*ix] ); //jeśli element skopiowany do t, jest większy niż następnik to return 1
 }
@@ -259,14 +253,14 @@ void NaturalMergeSort( int* pTab, int nSize ) //Sortowanie przez łaczenie natur
 			while( pTab[i] <= pTab[i + 1] )
 				pTmp1[j++] = pTab[i++]; //kopiujemy ity do tmp1
 
-			pTmp1[j++] = pTab[i++]; //dokopiwoanie ostatniego z serii do tmp1( j++ )
+			pTmp1[j++] = pTab[i++]; //dokopiowanie ostatniego z serii do tmp1( j++ )
 
 			if( i < nSize )
 			{
 				while( pTab[i] <= pTab[i + 1] )
 					pTmp2[k++] = pTab[i++];//kopiujemy ity do tmp2
 
-				pTmp2[k++] = pTab[i++]; //dokopiwoanie ostatniego z seriii do tmp2( k++ )
+				pTmp2[k++] = pTab[i++]; //dokopiowanie ostatniego z seriii do tmp2( k++ )
 			}
 		}
 
