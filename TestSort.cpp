@@ -7,12 +7,12 @@
 #define _DEBUG_
 using namespace std;
 
-typedef void( *pFSort )( int*, int ); //Typ wskaŸnikowy na funkcje sortuj¹ce
+typedef void( *pFSort )( int*, int ); //Typ wskaÅºnikowy na funkcje sortujÄ…ce
 
 int CreatTab( int** pTab, int nSize ); 
-void InsertNumbers( int* pTab, int nSize ); //Wype³nienie tablicy
+void InsertNumbers( int* pTab, int nSize ); //WypeÅ‚nienie tablicy
 void CopyTab( int* pTabKopia, int* pTab, int nSize ); //Kopiowanie tablicy
-void Sort( int* pTabKopia, int* pTab, int nSize, pFSort tab ); //Funkcja sortuj¹ca i obliczaj¹ca czas sortowania
+void Sort( int* pTabKopia, int* pTab, int nSize, pFSort tab ); //Funkcja sortujÄ…ca i obliczajÄ…ca czas sortowania
 void PrintTab( int* pTab, int nSize );
 
 
@@ -21,40 +21,40 @@ int main( int argc, char* argv[] )
 {
 	if( argc != 2 )
 	{
-		printf( "ERROR! Jako parametr wywolania, prosze uzyc wielkosci tablicy do sortowania.\nnp. TestSort.exe 1000\n" );
+		printf( "ERROR! On Command line use size of array to sort.\ne.g. TestSort.exe 1000\n" );
 		return 1;
 	}
 
 	srand( (unsigned int)time( NULL ) );
-	pFSort tab[] = { SelectionSort, InsertionSort, BubbleSort, MixedSort, HalfSort, HeapSort, NaturalMergeSort }; //Tablica funkcji sortuj¹cych
+	pFSort tab[] = { SelectionSort, InsertionSort, BubbleSort, MixedSort, HalfSort, HeapSort, NaturalMergeSort }; //Tablica funkcji sortujÄ…cych
 	const char* tabnames[] = { "SelectionSort", "InsertionSort", "BubbleSort", "MixedSort", "HalfSort", "HeapSort", "NaturalMergeSort" };
 	int nSize = atoi( argv[1] ); //rozmiar tablicy podany jako parametr
 
-	//Tworzê wskaŸniki do tablic 
+	//TworzÄ™ wskaÅºniki do tablic 
 	int* pTab = NULL; 
 	int* pTabKopia = NULL;
 
-	if( !CreatTab( &pTab, nSize ) )//Tworz¹ oryginaln¹ tablcê  //NIE WIEM CZT TER¯ TRZEBA TO ZABEZPIECZENIE
+	if( !CreatTab( &pTab, nSize ) )//TworzÄ… oryginalnÄ… tablcÄ™  //NIE WIEM CZT TERÅ» TRZEBA TO ZABEZPIECZENIE
 	{
 		perror( "ERROR! CreatTab - pTab main!" );
 		return 1;
 	}
-	InsertNumbers( pTab, nSize ); //Zape³niam tablicê randomowymi liczbami
+	InsertNumbers( pTab, nSize ); //ZapeÅ‚niam tablicÄ™ randomowymi liczbami
 
-	if( !CreatTab( &pTabKopia, nSize ) ) //Tworzê kopiê tablicy
+	if( !CreatTab( &pTabKopia, nSize ) ) //TworzÄ™ kopiÄ™ tablicy
 	{
 		perror( "ERROR! CreatTab - pTabKopia main!" );
 		return 1;
 	}
 
 #ifdef _DEBUG_ //Wydruk kontrolny tablicy
-	printf( "\nWydruk kontrolny poczatku tablicy (do 100 pierwszych liczb): \n" );
+	printf( "\nControl printout: \n" );
 	PrintTab( pTab, nSize );
 #endif
 	
-	printf( "Rozpoczynam sortowania dla %d elementow:\n\n", nSize );
-	int size = sizeof( tab ) / sizeof( pFSort ); //zmienna rozmiaru tablicy sortowañ
-	for( int i = 0; i < size; i++ )  //Wypisanie czasu sortowañ, pêtla for do wielloœci tablicy tab
+	printf( "Start sorting %d items:\n\n", nSize );
+	int size = sizeof( tab ) / sizeof( pFSort ); //zmienna rozmiaru tablicy sortowaÅ„
+	for( int i = 0; i < size; i++ )  //Wypisanie czasu sortowaÅ„, pÄ™tla for do wielloÅ›ci tablicy tab
 	{
 		printf( "%s\n", tabnames[i] );
 		Sort( pTabKopia, pTab, nSize, tab[i] );
@@ -66,7 +66,7 @@ int main( int argc, char* argv[] )
 	clock_t start = clock();
 	QuickSort( pTabKopia, 0, nSize - 1 ); //Sortowanie
 	double czas = (double)( clock() - start ) / CLOCKS_PER_SEC; //Oblicznie czasu sortowania
-	printf( "Posortowano w czasie %.4f \n\n", czas ); 
+	printf( "Sorted in %.4f \n\n", czas ); 
 
 //----------------------------------------------------------------------------------------
 	printf( "MergeSort \n" );
@@ -81,18 +81,17 @@ int main( int argc, char* argv[] )
 	start = clock();
 	MergeSort( pTabKopia, pTabtmp, nSize, 0, nSize - 1 );
 	czas = (double)( clock() - start ) / CLOCKS_PER_SEC; //Oblicznie czasu sortowania
-	printf( "Posortowano w czasie %.4f \n\n", czas ); 
+	printf( "Sorted in %.4f \n\n", czas ); 
 
 //----------------------------------------------------------------------------------------
 
 #ifdef _DEBUG_ //Wydruk kontrolony posortowanej tablicy
-	printf( "Wydruk posortowanej tablicy (do 100 pierwszych liczb): \n" );
+	printf( "Sorted array (to 100 first items): \n" );
 	PrintTab( pTabKopia, nSize );
 #endif
 
-	free( pTab ); //Zwalniam pamiêæ
+	free( pTab ); 
 	free( pTabKopia );
-	//free( pTabtmp );
 
 	return 0;
 }
@@ -100,13 +99,13 @@ int main( int argc, char* argv[] )
 //------------------------------------------------------------------------------
 int CreatTab( int** pTab, int nSize )
 {
-	*pTab = (int*)malloc( nSize*sizeof( int ) ); //przydzielam pamiêæ
+	*pTab = (int*)malloc( nSize*sizeof( int ) ); //przydzielam pamiÄ™Ä‡
 	if( !*pTab )
 	{
 		perror( "ERROR! CreatTab" );
 		return 0;
 	}
-	memset( *pTab, 0, nSize*sizeof( int ) ); //Wyzerowujemy tablicê
+	memset( *pTab, 0, nSize*sizeof( int ) ); //Wyzerowujemy tablicÄ™
 	return 1;
 }
 
@@ -130,14 +129,14 @@ void Sort( int* pTabKopia, int* pTab, int nSize, pFSort tab )
 	clock_t start = clock();
 	tab( pTabKopia, nSize ); //Sortowanie 
 	double czas = (double)( clock() - start ) / CLOCKS_PER_SEC; //Oblicznie czasu sortowania
-	printf( "Posortowano w czasie %.4f \n\n", czas );
+	printf( "Sorted in %.4f \n\n", czas );
 }
 
 //------------------------------------------------------------------------------
 void PrintTab( int* pTab, int nSize )
 {
 	int x = 100; //Domyslna ilosc elementow wydruku kontrolnego
-	if( nSize < 100 ) x = nSize; //zabezpieczenie przed tablica mniejsz¹ od 100 elementow
+	if( nSize < 100 ) x = nSize; //zabezpieczenie przed tablica mniejszÄ… od 100 elementow
 	for( int i = 0; i < x; i++ )
 		printf( "%d ", pTab[i] );
 	printf( "\n\n" );
